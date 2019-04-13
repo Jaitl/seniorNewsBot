@@ -9,8 +9,17 @@ lazy val root = (project in file("."))
   .settings(
     name := "seniorNewsBot",
     scapegoatVersion in ThisBuild := "1.3.8",
-    conflictManager := ConflictManager.strict,
-    libraryDependencies += scalaTest % Test
+    conflictManager := ConflictManager.strict
+  )
+  .settings(
+    libraryDependencies ++= Seq(
+      logback,
+      scalaLogging,
+      romeRss
+    ),
+    libraryDependencies ++= Seq(
+      scalaTest
+    )
   )
   .settings(
     scalacOptions := Seq(

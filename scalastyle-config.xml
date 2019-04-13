@@ -85,6 +85,7 @@
     <check level="error" class="org.scalastyle.scalariform.MethodNamesChecker" enabled="true">
         <parameters>
             <parameter name="regex"><![CDATA[^[a-z][A-Za-z0-9]*$]]></parameter>
+
         </parameters>
     </check>
     <check level="error" class="org.scalastyle.scalariform.NumberOfMethodsInTypeChecker" enabled="true">
@@ -98,6 +99,5 @@
 
     <check level="error" class="org.scalastyle.scalariform.BlockImportChecker" enabled="true"></check>
     <check level="error" class="org.scalastyle.scalariform.ImportOrderChecker" enabled="true"></check>
-    <check level="error" class="org.scalastyle.scalariform.UnderscoreImportChecker" enabled="true"></check>
     <check level="error" class="org.scalastyle.scalariform.SpaceAfterCommentStartChecker" enabled="true"></check>
 </scalastyle>
