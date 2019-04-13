@@ -9,6 +9,7 @@ lazy val root = (project in file("."))
   .settings(
     name := "seniorNewsBot",
     scapegoatVersion in ThisBuild := "1.3.8",
+    scapegoatDisabledInspections := Seq("FinalModifierOnCaseClass"),
     conflictManager := ConflictManager.strict
   )
   .settings(
