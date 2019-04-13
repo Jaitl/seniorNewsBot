@@ -94,9 +94,10 @@
     </check>
     <check level="error" class="org.scalastyle.scalariform.PublicMethodsHaveTypeChecker" enabled="true"></check>
     <check level="error" class="org.scalastyle.file.NewLineAtEofChecker" enabled="true"></check>
-    <check level="error" class="org.scalastyle.file.NoNewLineAtEofChecker" enabled="false"></check>
+    <check level="error" class="org.scalastyle.file.NoNewLineAtEofChecker" enabled="true"></check>
 
-    <check level="error" class="org.scalastyle.scalariform.BlockImportChecker" enabled="false"></check>
-    <check level="error" class="org.scalastyle.scalariform.ImportOrderChecker" enabled="false"></check>
-    <check level="error" class="org.scalastyle.scalariform.UnderscoreImportChecker" enabled="false"></check>
+    <check level="error" class="org.scalastyle.scalariform.BlockImportChecker" enabled="true"></check>
+    <check level="error" class="org.scalastyle.scalariform.ImportOrderChecker" enabled="true"></check>
+    <check level="error" class="org.scalastyle.scalariform.UnderscoreImportChecker" enabled="true"></check>
+    <check level="error" class="org.scalastyle.scalariform.SpaceAfterCommentStartChecker" enabled="true"></check>
 </scalastyle>
