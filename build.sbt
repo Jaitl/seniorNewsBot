@@ -16,7 +16,8 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       logback,
       scalaLogging,
-      romeRss
+      romeRss,
+      akkaActorTyped
     ),
     libraryDependencies ++= Seq(
       scalaTest
