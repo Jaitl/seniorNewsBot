@@ -3,9 +3,8 @@ package com.github.jaitl.seniornews.aggregator
 import akka.actor.typed.ActorRef
 import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.Behaviors
+import com.github.jaitl.seniornews.ChanelSchedulerConfig
 import com.github.jaitl.seniornews.aggregator.ChannelActor.ChannelMessage
-
-import scala.concurrent.duration.FiniteDuration
 
 object ChannelScheduler {
   sealed trait SchedulerMessage
@@ -25,5 +24,3 @@ object ChannelScheduler {
     }
   }
 }
-
-case class ChanelSchedulerConfig(interval: FiniteDuration)

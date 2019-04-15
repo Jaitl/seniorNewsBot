@@ -5,7 +5,6 @@ import akka.actor.typed.ActorSystem
 import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.Behaviors
 import com.github.jaitl.seniornews.aggregator.ChannelScheduler
-import com.github.jaitl.seniornews.aggregator.ChanelSchedulerConfig
 import com.github.jaitl.seniornews.aggregator.ChannelActor
 import com.github.jaitl.seniornews.aggregator.RomeRssReaderImpl
 import com.github.jaitl.seniornews.models.ChannelInfo
@@ -14,14 +13,17 @@ import com.github.jaitl.seniornews.storage.NewsStorageActor
 
 object Application extends App {
 
-  import scala.concurrent.duration._
+  import pureconfig.generic.auto._
+
+  val config = pureconfig.loadConfig[Config]("bot") match {
+    case Right(cfg) => cfg
+    case Left(er)   => throw new RuntimeException(er.toList.mkString(","))
+  }
 
   val rssChannels = Seq(
     ChannelInfo("https://feed.infoq.com", "infoq"),
     ChannelInfo("http://feeds.dzone.com/home", "dzone")
   )
-
-  val schedulerConfig = ChanelSchedulerConfig(1.minutes)
 
   val main: Behavior[NotUsed] =
     Behaviors.setup { context =>
@@ -35,7 +37,7 @@ object Application extends App {
         context.spawn(ChannelActor.channel(channelReader, channel, storage), ChannelActor.name(channel.name))
       }
 
-      context.spawn(ChannelScheduler.scheduler(schedulerConfig, channels), ChannelScheduler.name)
+      context.spawn(ChannelScheduler.scheduler(config.chanelSchedule, channels), ChannelScheduler.name)
 
       Behaviors.same
     }
