@@ -2,7 +2,7 @@ import Dependencies._
 import com.typesafe.sbt.packager.docker._
 
 ThisBuild / scalaVersion := "2.12.8"
-ThisBuild / version := "1.0.0"
+ThisBuild / version := "1.0.1"
 ThisBuild / organization := "com.github.jaitl"
 ThisBuild / organizationName := "jaitl.pro"
 

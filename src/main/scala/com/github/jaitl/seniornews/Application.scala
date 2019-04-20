@@ -21,7 +21,9 @@ object Application extends App {
   val rssChannels = Seq(
     ChannelInfo("https://feed.infoq.com", "infoq"),
     ChannelInfo("http://feeds.dzone.com/home", "dzone"),
-    ChannelInfo("https://news.ycombinator.com/rss", "hackerNews")
+    ChannelInfo("https://hnrss.org/newest?points=40", "hackernews"),
+    ChannelInfo("https://www.infoworld.com/index.rss", "infoworld"),
+    ChannelInfo("https://www.javaworld.com/index.rss", "javaworld")
   )
 
   val main: Behavior[NotUsed] =
