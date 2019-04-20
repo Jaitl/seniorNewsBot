@@ -1,7 +1,8 @@
 import Dependencies._
+import com.typesafe.sbt.packager.docker._
 
 ThisBuild / scalaVersion := "2.12.8"
-ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / version := "1.0.0"
 ThisBuild / organization := "com.github.jaitl"
 ThisBuild / organizationName := "jaitl.pro"
 
@@ -26,6 +27,13 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       scalaTest
     )
+  )
+  .enablePlugins(JavaAppPackaging)
+  .settings(
+    mainClass in Compile := Some("com.github.jaitl.seniornews.Application")
+  )
+  .settings(
+    dockerRepository in Docker := Some("jaitl")
   )
   .settings(
     scalacOptions := Seq(
