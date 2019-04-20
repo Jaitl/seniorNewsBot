@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/Jaitl/seniorNewsBot/badge.svg?branch=master)](https://coveralls.io/github/Jaitl/seniorNewsBot?branch=master)
 
 ## Use
-Add bot [@seniorNewsBot](t.me/SeniorNewsBot) and send `/start`
+Add bot [@SeniorNewsBot](t.me/SeniorNewsBot) and send `/start`
 
 ## Development
 ### Check code
