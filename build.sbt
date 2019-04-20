@@ -20,6 +20,7 @@ lazy val root = (project in file("."))
       pureconfig,
       romeRss,
       akkaActorTyped,
+      akkaStreamsTyped,
       bot4s
     ),
     libraryDependencies ++= Seq(

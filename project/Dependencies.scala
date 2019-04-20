@@ -7,6 +7,11 @@ object Dependencies {
   lazy val scalaLogging = "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
   lazy val scalaConfig = "com.typesafe" % "config" % "1.3.3"
   lazy val akkaActorTyped = "com.typesafe.akka" %% "akka-actor-typed" % "2.5.22"
-  lazy val bot4s = "com.bot4s" %% "telegram-core" % "4.0.0-RC2"
+  lazy val akkaStreamsTyped = "com.typesafe.akka" %% "akka-stream-typed" % "2.5.22"
+  lazy val bot4s = "info.mukel" %% "telegrambot4s" % "3.0.16" excludeAll (
+    ExclusionRule("com.typesafe.akka", "akka-actor_2.12"),
+    ExclusionRule("com.typesafe.akka", "akka-stream_2.12"),
+    ExclusionRule("com.typesafe.scala-logging", "scala-logging_2.12")
+  )
   lazy val pureconfig = "com.github.pureconfig" %% "pureconfig" % "0.10.2"
 }
