@@ -22,9 +22,16 @@ object Application extends App {
     ChannelInfo("https://feed.infoq.com", "infoq"),
     ChannelInfo("http://feeds.dzone.com/home", "dzone"),
     ChannelInfo("https://hnrss.org/newest?points=100", "hackerNews"),
-    // spring
+    ChannelInfo("https://sdtimes.com/feed/", "sdTimes"),
+    ChannelInfo(
+      "https://softwareengineeringdaily.com/category/all-episodes/exclusive-content/articles/feed/",
+      "softwareengIneeringDaily"
+    ),
+    // blogs
     ChannelInfo("http://feeds.feedburner.com/Baeldung", "baeldungBlog"),
     ChannelInfo("https://springframework.guru/feed/", "springGuruBlog"),
+    ChannelInfo("http://feeds.hanselman.com/ScottHanselman", "ScottHanselmanBlog"),
+    ChannelInfo("http://feeds.feedburner.com/GDBcode", "GoogleDevBlog"),
     // podcasts
     ChannelInfo("http://feeds.rucast.net/radio-t", "radiotPodcast"),
     ChannelInfo("https://feeds.podcastmirror.com/razborpoletov", "razborPoletovPodcast"),
