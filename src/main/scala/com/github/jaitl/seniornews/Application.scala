@@ -21,9 +21,24 @@ object Application extends App {
   val rssChannels = Seq(
     ChannelInfo("https://feed.infoq.com", "infoq"),
     ChannelInfo("http://feeds.dzone.com/home", "dzone"),
-    ChannelInfo("https://hnrss.org/newest?points=40", "hackernews"),
-    ChannelInfo("https://www.infoworld.com/index.rss", "infoworld"),
-    ChannelInfo("https://www.javaworld.com/index.rss", "javaworld")
+    ChannelInfo("https://hnrss.org/newest?points=100", "hackerNews"),
+    // spring
+    ChannelInfo("http://feeds.feedburner.com/Baeldung", "baeldungBlog"),
+    ChannelInfo("https://springframework.guru/feed/", "springGuruBlog"),
+    // podcasts
+    ChannelInfo("http://feeds.rucast.net/radio-t", "radiotPodcast"),
+    ChannelInfo("https://feeds.podcastmirror.com/razborpoletov", "razborPoletovPodcast"),
+    ChannelInfo("https://devzen.ru/feed/", "devzenPodcast"),
+    ChannelInfo("http://feeds.soundcloud.com/users/soundcloud:users:291337106/sounds.rss", "podlodkaPodcast"),
+    ChannelInfo("https://scalalaz.ru/rss/feed.xml", "scalalazPodcast"),
+    // rus
+    ChannelInfo("https://jug.ru/feed/", "jug"),
+    ChannelInfo("https://news.radio-t.com/rss", "radiotNews"),
+    ChannelInfo("https://habr.com/ru/rss/hub/java/all/?fl=ru%2Cen", "habrJava"),
+    ChannelInfo("https://habr.com/ru/rss/hub/programming/all/?fl=ru%2Cen", "habrDev"),
+    // medium
+    ChannelInfo("https://hackernoon.com/feed", "hackerNoon"),
+    ChannelInfo("https://medium.freecodecamp.org/feed", "freeCodeCamp")
   )
 
   val main: Behavior[NotUsed] =
