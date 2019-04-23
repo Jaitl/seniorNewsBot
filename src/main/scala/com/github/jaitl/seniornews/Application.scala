@@ -27,6 +27,7 @@ object Application extends App {
       "https://softwareengineeringdaily.com/category/all-episodes/exclusive-content/articles/feed/",
       "softwareengIneeringDaily"
     ),
+    ChannelInfo("https://www.developer.com/developer/dev-25.xml", "developerCom"),
     // blogs
     ChannelInfo("http://feeds.feedburner.com/Baeldung", "baeldungBlog"),
     ChannelInfo("https://springframework.guru/feed/", "springGuruBlog"),
