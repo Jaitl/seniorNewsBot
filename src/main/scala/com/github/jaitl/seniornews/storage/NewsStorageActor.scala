@@ -26,8 +26,10 @@ object NewsStorageActor {
       case StorageMessage.SaveMessage(items) =>
         context.log.info(s"Receive new news, count: ${items.size}")
         val newItems = items.filterNot(item => sendIds(item.id))
-        if (newItems.nonEmpty) {
-          sender ! TelegramMessages.SendNews(newItems, context.self)
+        val notStopWordsItems = newItems.filterNot(i => StopWordFilter.hasStopWords(i.title))
+        context.log.info(s"After filter news, count: ${notStopWordsItems.size}")
+        if (notStopWordsItems.nonEmpty) {
+          sender ! TelegramMessages.SendNews(notStopWordsItems, context.self)
         }
         Behaviors.same
       case StorageMessage.SendNews(ids) =>

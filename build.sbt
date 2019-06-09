@@ -22,7 +22,8 @@ lazy val root = (project in file("."))
       romeRss,
       akkaActorTyped,
       akkaStreamsTyped,
-      bot4s
+      bot4s,
+      mapDb
     ),
     libraryDependencies ++= Seq(
       scalaTest

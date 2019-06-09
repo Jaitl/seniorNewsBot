@@ -14,4 +14,5 @@ object Dependencies {
     ExclusionRule("com.typesafe.scala-logging", "scala-logging_2.12")
   )
   lazy val pureconfig = "com.github.pureconfig" %% "pureconfig" % "0.10.2"
+  lazy val mapDb = "org.mapdb" % "mapdb" % "3.0.7"
 }
