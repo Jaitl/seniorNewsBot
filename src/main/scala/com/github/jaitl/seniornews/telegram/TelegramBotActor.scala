@@ -42,11 +42,10 @@ class TelegramBotActor(
     }
   }
 
-
   override def onMessage(msg: TelegramMessages): Behavior[TelegramMessages] = msg match {
     case StartListenMessages =>
       this.run()
-      logger.info("Start telegram bot")
+      logger.info(s"Start telegram bot, count subscribers: ${subscriberStorage.subscribers().size}")
       Behaviors.same
     case SendNews(items, replyTo) if subscriberStorage.subscribers().nonEmpty =>
       val messages = for {
@@ -79,7 +78,7 @@ class TelegramBotActor(
   }
 
   private def send(msg: SendNewsTo): Future[Unit] =
-    request(SendMessage(Chat(msg.subscriber), s"${msg.item.title}: ${msg.item.url}")).map(_ => Unit)
+    request(SendMessage(Chat(msg.subscriber), s"${msg.item.title.trim}: ${msg.item.url}")).map(_ => Unit)
 
   private def handleSendErrors(msg: SendNewsTo): PartialFunction[Throwable, Unit] = {
     case ex: TelegramApiException if ex.errorCode == 403 =>

@@ -6,12 +6,14 @@ object StopWordFilter {
     "blockchain",
     "cryptocurrency",
     "currency",
+    "crypto",
     "IoC",
     "IoT",
     "AI",
     "Beginners",
     "Node",
     "Node.js",
+    "Nodejs",
     "React",
     "ReactJs",
     "Angular",
@@ -19,6 +21,7 @@ object StopWordFilter {
     "gdpr",
     "redux",
     "js",
+    "Python",
     "Django",
     "Javascript",
     "PHP",
@@ -28,7 +31,8 @@ object StopWordFilter {
 
   private val stopPhrases: Set[String] = Set(
     "Data Analysis",
-    "Getting Started"
+    "Getting Started",
+    ".NET"
   ).map(_.toLowerCase)
 
   def splitTitle(title: String): Set[String] = {
