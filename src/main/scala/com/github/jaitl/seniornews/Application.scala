@@ -8,6 +8,7 @@ import com.github.jaitl.seniornews.aggregator.ChannelScheduler
 import com.github.jaitl.seniornews.aggregator.ChannelActor
 import com.github.jaitl.seniornews.aggregator.RomeRssReaderImpl
 import com.github.jaitl.seniornews.models.ChannelInfo
+import com.github.jaitl.seniornews.storage.NewsStorage
 import com.github.jaitl.seniornews.storage.NewsStorageActor
 import com.github.jaitl.seniornews.telegram.SubscriberStorage
 import com.github.jaitl.seniornews.telegram.TelegramBotActor
@@ -49,6 +50,7 @@ object Application extends App with LazyLogging {
     ChannelInfo("https://medium.freecodecamp.org/feed", "freeCodeCamp")
   )
 
+  val newsStorage = new NewsStorage(config.newsStorage)
   val subscriberStorage = new SubscriberStorage(config.subscriberStorage)
 
   val main: Behavior[NotUsed] =
@@ -60,7 +62,7 @@ object Application extends App with LazyLogging {
         behavior = new TelegramBotActor(config.credentials.token, subscriberStorage),
         name = TelegramBotActor.name
       )
-      val storage = context.spawn(NewsStorageActor.storage(telegram), NewsStorageActor.name)
+      val storage = context.spawn(NewsStorageActor.storage(newsStorage, telegram), NewsStorageActor.name)
 
       val channels = rssChannels.map { channel =>
         context.spawn(ChannelActor.channel(channelReader, channel, storage), ChannelActor.name(channel.name))
@@ -77,6 +79,7 @@ object Application extends App with LazyLogging {
 
   sys.addShutdownHook {
     logger.info("Stop bot")
+    newsStorage.close()
     subscriberStorage.close()
     system.terminate()
   }

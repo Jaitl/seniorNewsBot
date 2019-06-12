@@ -16,15 +16,14 @@ object NewsStorageActor {
 
   def name: String = "NewsStorageActor"
 
-  def storage(sender: ActorRef[TelegramMessages]): Behavior[StorageMessage] = storage(Set.empty, sender)
-
   def storage(
-      sendIds: Set[String],
+      storage: NewsStorage,
       sender: ActorRef[TelegramMessages]
   ): Behavior[StorageMessage] = Behaviors.receive { (context, message) =>
     message match {
       case StorageMessage.SaveMessage(items) =>
         context.log.info(s"Receive new news, count: ${items.size}")
+        val sendIds = storage.items()
         val newItems = items.filterNot(item => sendIds(item.id))
         val notStopWordsItems = newItems.filterNot(i => StopWordFilter.hasStopWords(i.title))
         context.log.info(s"After filter news, count: ${notStopWordsItems.size}")
@@ -35,7 +34,8 @@ object NewsStorageActor {
       case StorageMessage.SendNews(ids) =>
         context.log.info(s"News has been sent, count: ${ids.size}")
         // TODO ttl
-        storage(sendIds ++ ids, sender)
+        storage.addItems(ids)
+        Behaviors.same
     }
   }
 }
