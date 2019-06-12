@@ -33,9 +33,13 @@ class TelegramBotActor(
   import TelegramBotActor._
 
   onCommand("/start") { implicit msg =>
-    logger.info(s"New subscriber: ${msg.chat.id}")
-    subscriberStorage.addSubscriber(msg.chat.id)
-    reply("You subscribed to Senior News!")
+    subscriberStorage.addSubscriber(msg.chat.id) match {
+      case Success(_) =>
+        logger.info(s"New subscriber, id: ${msg.chat.id}")
+        reply("You subscribed to Senior News!")
+      case Failure(ex) =>
+        logger.error("Fail to store new subscriber", ex)
+    }
   }
 
 
@@ -60,14 +64,7 @@ class TelegramBotActor(
     val resultFuture = Source(items.to[scala.collection.immutable.Seq])
       .mapAsync(1) { msg =>
         send(msg)
-          .recover {
-            case ex: TelegramApiException if ex.errorCode == 403 =>
-              if (subscriberStorage.subscribers().contains(msg.subscriber)) {
-                subscriberStorage.removeSubscriber(msg.subscriber)
-              }
-            case ex: TelegramApiException =>
-              logger.error("Fail during send message", ex)
-          }
+          .recover(handleSendErrors(msg))
       }
       .runWith(Sink.seq)
 
@@ -81,8 +78,19 @@ class TelegramBotActor(
     }
   }
 
-  private def send(msg: SendNewsTo): Future[Unit] = {
+  private def send(msg: SendNewsTo): Future[Unit] =
     request(SendMessage(Chat(msg.subscriber), s"${msg.item.title}: ${msg.item.url}")).map(_ => Unit)
+
+  private def handleSendErrors(msg: SendNewsTo): PartialFunction[Throwable, Unit] = {
+    case ex: TelegramApiException if ex.errorCode == 403 =>
+      if (subscriberStorage.subscribers().contains(msg.subscriber)) {
+        subscriberStorage.removeSubscriber(msg.subscriber) match {
+          case Success(_)   => logger.info(s"Subscriber removed, id: ${msg.subscriber}")
+          case Failure(exx) => logger.error("Fail to remove subscriber", exx)
+        }
+      }
+    case ex: TelegramApiException =>
+      logger.error("Fail during send message", ex)
   }
 }
 

@@ -6,6 +6,9 @@ import akka.actor.typed.scaladsl.Behaviors
 import com.github.jaitl.seniornews.models.NewsItem
 import com.github.jaitl.seniornews.telegram.TelegramBotActor.TelegramMessages
 
+import scala.util.Failure
+import scala.util.Success
+
 object NewsStorageActor {
   sealed trait StorageMessage
 
@@ -32,9 +35,10 @@ object NewsStorageActor {
         }
         Behaviors.same
       case StorageMessage.SendNews(ids) =>
-        context.log.info(s"News has been sent, count: ${ids.size}")
-        // TODO ttl
-        storage.addItems(ids)
+        storage.addItems(ids) match {
+          case Success(_)  => context.log.info(s"News has been sent, count: ${ids.size}")
+          case Failure(ex) => context.log.error(ex, "Fail to store send ids")
+        }
         Behaviors.same
     }
   }
