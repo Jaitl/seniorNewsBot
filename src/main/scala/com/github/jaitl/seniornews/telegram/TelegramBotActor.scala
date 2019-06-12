@@ -38,6 +38,7 @@ class TelegramBotActor(
     reply("You subscribed to Senior News!")
   }
 
+
   override def onMessage(msg: TelegramMessages): Behavior[TelegramMessages] = msg match {
     case StartListenMessages =>
       this.run()

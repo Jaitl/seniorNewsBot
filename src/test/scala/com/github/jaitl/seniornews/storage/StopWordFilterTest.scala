@@ -19,4 +19,14 @@ class StopWordFilterTest extends FunSuite with Matchers {
 
     result shouldBe false
   }
+
+  test("split title") {
+    val title = "The history and  opportunity-of-the: (JMS + HTTP)"
+
+    val result = StopWordFilter.splitTitle(title)
+
+    result should contain theSameElementsAs Set(
+      "the", "history", "and", "opportunity", "of", "the", "jms", "http"
+    )
+  }
 }
