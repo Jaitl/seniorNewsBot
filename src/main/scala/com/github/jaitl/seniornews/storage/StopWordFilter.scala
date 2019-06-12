@@ -6,7 +6,6 @@ object StopWordFilter {
     "blockchain",
     "cryptocurrency",
     "currency",
-    "Data Analysis",
     "IoC",
     "IoT",
     "AI",
@@ -23,9 +22,13 @@ object StopWordFilter {
     "Django",
     "Javascript",
     "PHP",
-    "Getting Started",
     "top",
     "best"
+  ).map(_.toLowerCase)
+
+  private val stopPhrases: Set[String] = Set(
+    "Data Analysis",
+    "Getting Started"
   ).map(_.toLowerCase)
 
   def splitTitle(title: String): Set[String] = {
@@ -34,8 +37,11 @@ object StopWordFilter {
   }
 
   def hasStopWords(title: String): Boolean = {
-    val titleWords = splitTitle(title)
-    val res = stopWord.intersect(titleWords)
-    res.nonEmpty
+    val lowerTitle = title.toLowerCase
+    val titleWords = splitTitle(lowerTitle)
+    val stopWordsInTitle = stopWord.intersect(titleWords)
+    val stopPhrasesInTitle = stopPhrases.map(p => lowerTitle.contains(p)).reduce(_ || _)
+
+    stopWordsInTitle.nonEmpty || stopPhrasesInTitle
   }
 }
