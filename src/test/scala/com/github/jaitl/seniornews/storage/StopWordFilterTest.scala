@@ -12,11 +12,29 @@ class StopWordFilterTest extends FunSuite with Matchers {
     result shouldBe true
   }
 
-  test("title has no stop words") {
+  test("title has stop phrase") {
+    val title = "Getting started with java"
+
+    val result = StopWordFilter.hasStopWords(title)
+
+    result shouldBe true
+  }
+
+  test("title has no stop words and stop phrase") {
     val title = "The history and opportunity of the modern mortgage [video]"
 
     val result = StopWordFilter.hasStopWords(title)
 
     result shouldBe false
+  }
+
+  test("split title") {
+    val title = "The history and  opportunity-of-the: (JMS + HTTP)"
+
+    val result = StopWordFilter.splitTitle(title)
+
+    result should contain theSameElementsAs Set(
+      "the", "history", "and", "opportunity", "of", "the", "jms", "http"
+    )
   }
 }

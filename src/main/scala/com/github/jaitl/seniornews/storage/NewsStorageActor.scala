@@ -6,6 +6,9 @@ import akka.actor.typed.scaladsl.Behaviors
 import com.github.jaitl.seniornews.models.NewsItem
 import com.github.jaitl.seniornews.telegram.TelegramBotActor.TelegramMessages
 
+import scala.util.Failure
+import scala.util.Success
+
 object NewsStorageActor {
   sealed trait StorageMessage
 
@@ -16,15 +19,14 @@ object NewsStorageActor {
 
   def name: String = "NewsStorageActor"
 
-  def storage(sender: ActorRef[TelegramMessages]): Behavior[StorageMessage] = storage(Set.empty, sender)
-
   def storage(
-      sendIds: Set[String],
+      storage: NewsStorage,
       sender: ActorRef[TelegramMessages]
   ): Behavior[StorageMessage] = Behaviors.receive { (context, message) =>
     message match {
       case StorageMessage.SaveMessage(items) =>
         context.log.info(s"Receive new news, count: ${items.size}")
+        val sendIds = storage.items()
         val newItems = items.filterNot(item => sendIds(item.id))
         val notStopWordsItems = newItems.filterNot(i => StopWordFilter.hasStopWords(i.title))
         context.log.info(s"After filter news, count: ${notStopWordsItems.size}")
@@ -33,9 +35,11 @@ object NewsStorageActor {
         }
         Behaviors.same
       case StorageMessage.SendNews(ids) =>
-        context.log.info(s"News has been sent, count: ${ids.size}")
-        // TODO ttl
-        storage(sendIds ++ ids, sender)
+        storage.addItems(ids) match {
+          case Success(_)  => context.log.info(s"News has been sent, count: ${ids.size}")
+          case Failure(ex) => context.log.error(ex, "Fail to store send ids")
+        }
+        Behaviors.same
     }
   }
 }
