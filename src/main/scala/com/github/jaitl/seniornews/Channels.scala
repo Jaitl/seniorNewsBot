@@ -27,9 +27,6 @@ object Channels {
     ChannelInfo("https://jug.ru/feed/", "jug"),
     ChannelInfo("https://news.radio-t.com/rss", "radiotNews"),
     ChannelInfo("https://habr.com/ru/rss/hub/java/all/?fl=ru%2Cen", "habrJava"),
-    ChannelInfo("https://habr.com/ru/rss/hub/programming/all/?fl=ru%2Cen", "habrDev"),
-    // medium
-    ChannelInfo("https://hackernoon.com/feed", "hackerNoon"),
-    ChannelInfo("https://medium.freecodecamp.org/feed", "freeCodeCamp")
+    ChannelInfo("https://habr.com/ru/rss/hub/programming/all/?fl=ru%2Cen", "habrDev")
   )
 }
