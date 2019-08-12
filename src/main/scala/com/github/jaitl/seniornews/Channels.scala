@@ -25,8 +25,6 @@ object Channels {
     ChannelInfo("https://scalalaz.ru/rss/feed.xml", "scalalazPodcast"),
     // rus
     ChannelInfo("https://jug.ru/feed/", "jug"),
-    ChannelInfo("https://news.radio-t.com/rss", "radiotNews"),
-    ChannelInfo("https://habr.com/ru/rss/hub/java/all/?fl=ru%2Cen", "habrJava"),
-    ChannelInfo("https://habr.com/ru/rss/hub/programming/all/?fl=ru%2Cen", "habrDev")
+    ChannelInfo("https://news.radio-t.com/rss", "radiotNews")
   )
 }
