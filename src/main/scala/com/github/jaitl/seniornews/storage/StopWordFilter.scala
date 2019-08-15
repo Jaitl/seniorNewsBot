@@ -27,7 +27,7 @@ object StopWordFilter {
     "PHP",
     "top",
     "best",
-    "XML,
+    "XML",
     "Spring",
     "TensorFlow",
     "Artificial"
