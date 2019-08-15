@@ -26,13 +26,18 @@ object StopWordFilter {
     "Javascript",
     "PHP",
     "top",
-    "best"
+    "best",
+    "XML,
+    "Spring",
+    "TensorFlow",
+    "Artificial"
   ).map(_.toLowerCase)
 
   private val stopPhrases: Set[String] = Set(
     "Data Analysis",
     "Getting Started",
-    ".NET"
+    ".NET",
+    "Beginner's"
   ).map(_.toLowerCase)
 
   def splitTitle(title: String): Set[String] = {
